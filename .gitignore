@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+scripthook/
+.vs/
+x64/
+Debug/
+Release/
