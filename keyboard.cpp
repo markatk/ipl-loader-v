@@ -45,3 +45,32 @@ void onKeyboardMessage(DWORD key, WORD repeats, BYTE scanCode, BOOL isExtended, 
         keyStates[key].isUpNow = isUpNow;
     }
 }
+
+const int NOW_PERIOD = 100, MAX_DOWN = 5000; // ms
+
+bool isKeyPressed(DWORD key) {
+    if (key >= KEYS_SIZE) {
+        return false;
+    }
+
+    return (GetTickCount() < keyStates[key].time + MAX_DOWN) && !keyStates[key].isUpNow;
+}
+
+bool isKeyReleased(DWORD key, bool exclusive) {
+    if (key >= KEYS_SIZE) {
+        return false;
+    }
+
+    bool b = GetTickCount() < keyStates[key].time + NOW_PERIOD && keyStates[key].isUpNow;
+    if (b && exclusive) {
+        resetKeyState(key);
+    }
+        
+    return b;
+}
+
+void resetKeyState(DWORD key) {
+    if (key < KEYS_SIZE) {
+        memset(&keyStates[key], 0, sizeof(keyStates[0]));
+    }
+}

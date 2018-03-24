@@ -31,3 +31,7 @@
 #include <windows.h>
 
 void onKeyboardMessage(DWORD key, WORD repeats, BYTE scanCode, BOOL isExtended, BOOL isWithAlt, BOOL wasDownBefore, BOOL isUpNow);
+
+bool isKeyPressed(DWORD key);
+bool isKeyReleased(DWORD key, bool exclusive = true);
+void resetKeyState(DWORD key);
